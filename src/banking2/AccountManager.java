@@ -31,6 +31,8 @@ public class AccountManager {
 		}
 		Scanner scanner = new Scanner(System.in);
 		
+		System.out.println("***신규계좌개설***");
+		System.out.println("-----계좌선택-----");
 		System.out.println("1. 보통계좌");
 	    System.out.println("2. 신용신뢰계좌");
 	    System.out.print("계좌 종류를 선택하세요: ");
@@ -63,19 +65,19 @@ public class AccountManager {
 	}
 	private void makeHighCreditAccount(Scanner scanner) {
 
-        System.out.print("계좌번호 입력: ");
+        System.out.print("계좌번호: ");
         String accNumber = scanner.next();
 
-        System.out.print("고객이름 입력: ");
+        System.out.print("고객이름: ");
         String accName = scanner.next();
 
-        System.out.print("잔고 입력: ");
+        System.out.print("잔고: ");
         int balance = scanner.nextInt();
 
         System.out.print("기본이자(정수형태로 입력): ");
         int InterestRate = scanner.nextInt();
 
-        System.out.print("신용등급(A, B, C 등급): ");
+        System.out.print("신용등급(A,B,C등급): ");
         char creditRating = scanner.next().charAt(0);
 
         HighCreditAccount highCreditAccount = new HighCreditAccount(accNumber, accName, balance, InterestRate, creditRating);

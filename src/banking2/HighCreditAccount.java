@@ -21,14 +21,14 @@ public class HighCreditAccount extends Account {
             return;
         }
         
-        double additionalInterestRate = getAdditionalInterestRate();
+        double creditRatingInterestRate = creditRatingInterestRate();
         double baseInterest = balance * interestRate;
-        double additionalInterest = balance * additionalInterestRate;
+        double additionalInterest = balance * creditRatingInterestRate;
         double totalInterest = baseInterest + additionalInterest;
         balance += totalInterest; 
     }
 
-    private double getAdditionalInterestRate() {
+    private double creditRatingInterestRate() {
         switch (creditRating) {
             case 'A':
                 return 0.07;
