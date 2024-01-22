@@ -40,7 +40,7 @@ public abstract class Account {
 		this.balance -= amount;
 	}
 	public void withdrawAll(int amount) {
-		this.balance -= balance;
+		this.balance = 0;
 	}
 	@Override
 	public String toString() {

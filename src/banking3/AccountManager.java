@@ -134,31 +134,32 @@ public class AccountManager {
 	    }
 	    System.out.print("출금액: ");
 	    int withdrawAmount = scan.nextInt();
+	    
 	    if (withdrawAmount <= 0) {
 	    	System.out.println("음수는 출금불가");
 	    	return;
 	    }
-	    if ((withdrawAmount%1000)==0 ) {
-	    	if (withdrawAmount > balance) {
-				System.out.print("잔고가 부족합니다. 금액전체를 출금할까요?(y or n) : ");
-				String selectWithdraw = scan.next();
-				if(selectWithdraw.equals("y")) {
-					account.withdrawAll(withdrawAmount);
-					System.out.println("출금이 완료되었습니다.");
-					return;
-				}
-				else if(selectWithdraw.equals("n")) {
-					System.out.println("취소되었습니다.");
-					return;
-				}
-	    	account.withdraw(withdrawAmount);
-	    	System.out.println("출금이 완료되었습니다");
-	    	}
-	    else {
-	    	System.out.println("1000원 단위로 입금가능함.");
-	    	return;
-	    	}
-		}
+	    if (withdrawAmount % 1000 != 0) {
+	        System.out.println("1000원 단위로 출금이 가능합니다. 출금이 취소되었습니다.");
+	        return;
+	    }
+
+	    if (withdrawAmount > account.getBalance()) {
+	        System.out.print("잔고가 부족합니다. 금액전체를 출금할까요? (y or n): ");
+	        String selectWithdraw = scan.next();
+	        if (selectWithdraw.equals("y")) {
+	        	account.withdrawAll(withdrawAmount);
+				System.out.println("출금이 완료되었습니다.");
+				return;
+			}
+			else if(selectWithdraw.equals("n")) {
+				System.out.println("취소되었습니다.");
+				return;
+			}
+	    } else {
+	        account.withdraw(withdrawAmount);
+	        System.out.println("출금이 완료되었습니다.");
+	    }
 	}
 	
 	
