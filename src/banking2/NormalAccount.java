@@ -10,8 +10,8 @@ public class NormalAccount extends Account {
     }
     @Override
     public void deposit(double amount) {
+    	applyInterest();
         super.deposit(amount);
-        applyInterest();
     }
     private void applyInterest() {
         double interestAmount = balance * interestRate;
