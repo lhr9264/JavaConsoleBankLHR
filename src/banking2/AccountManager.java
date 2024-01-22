@@ -38,11 +38,14 @@ public class AccountManager {
 	    System.out.print("계좌 종류를 선택하세요: ");
 	    int accountType = scanner.nextInt();
 	
-        if (accountType == 1) {
-            makeNormalAccount(scanner);
-        } else if (accountType == 2) {
-            makeHighCreditAccount(scanner);
-        }
+       switch (accountType) {
+       	case 1 :
+       		makeNormalAccount(scanner);
+       		break;
+       	case 2 :
+       		makeHighCreditAccount(scanner);
+       		break;
+       }
 	}
 	private void makeNormalAccount(Scanner scanner) {
 		System.out.print("계좌번호: ");
