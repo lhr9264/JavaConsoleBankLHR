@@ -110,13 +110,12 @@ public class AccountManager {
 	    	System.out.println("음수는 입금불가");
 	    	return;
 	    }
-	    if ((depositAmount%500)==0 ) {
-	    	account.deposit(depositAmount);
-	    	System.out.println("입금이 완료되었습니다");
-	    }
-	    else {
+	    if (depositAmount % 500 !=0 ) {
 	    	System.out.println("500원 단위로 입금가능함.");
+	    	return;
 	    }
+	    account.deposit(depositAmount);
+	    System.out.println("입금이 완료되었습니다");
 	    
 	}
 	public void withdrawMoney() {
