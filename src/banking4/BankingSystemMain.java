@@ -28,6 +28,9 @@ public class BankingSystemMain {
 				handler.showAccInfo();
 				break;
 			case 5:
+				handler.deleteAccount();
+				break;
+			case 6:
 				System.out.println("프로그램종료");
 				return;
 			default :

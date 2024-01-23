@@ -2,15 +2,12 @@ package banking4;
 
 import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class AccountManager  {
-	
-	private Account[] accountArray;
-	private int numOfAccounts;
+	private Set<Account> accountArray = new HashSet<>();
 
 	public AccountManager() {
-		accountArray = new Account[50];
-		numOfAccounts = 0;
 	}
 
 	public void showMenu() {
@@ -19,13 +16,14 @@ public class AccountManager  {
 		System.out.println("2.입  금");
 		System.out.println("3.출  금");
 		System.out.println("4.계좌정보출력");
-		System.out.println("5.프로그램종료");
+		System.out.println("5.계좌정보삭제");
+		System.out.println("6.프로그램종료");
 		System.out.print("선택:");
 	}
 	
 	
 	public void makeAccount(int choice) {
-		if (numOfAccounts >= 50) {
+		if (accountArray.size() >= 50) {
 			System.out.println("더 이상 계좌를 개설할 수 없습니다.");
 			return;
 		}
@@ -51,6 +49,24 @@ public class AccountManager  {
 		System.out.print("계좌번호: ");
 		String accNumber = scanner.next();
 		
+		Account existingAccount = findAccount(accNumber);
+		if(existingAccount != null) {
+			System.out.print("중복계좌발견됨. 덮어쓸까요? (y or n): ");
+			String overwriteChoice = scanner.next();
+			
+			if(overwriteChoice.equals("n")) {
+				System.out.println("계좌개설이 취소되었습니다.");
+				return;
+			}
+			else if (overwriteChoice.equals("y")) {
+				accountArray.remove(existingAccount);
+			}
+			else {
+				System.out.println("잘못입력되었습니다.");
+				return;
+			}
+		}
+		
 		System.out.print("고객이름: ");
 		String accName = scanner.next();
 		
@@ -62,7 +78,8 @@ public class AccountManager  {
 		
 		NormalAccount normalAccount =
 				new NormalAccount(accNumber, accName, balance, InterestRate);
-	    accountArray[numOfAccounts++] = normalAccount;
+		accountArray.remove(normalAccount);
+		accountArray.add(normalAccount);
 
 	    System.out.println("계좌개설이 완료되었습니다.");
 	}
@@ -71,6 +88,24 @@ public class AccountManager  {
         System.out.print("계좌번호: ");
         String accNumber = scanner.next();
 
+        Account existingAccount = findAccount(accNumber);
+        if (existingAccount != null) {
+            System.out.print("중복계좌발견됨. 덮어쓸까요? (y or n): ");
+            String overwriteChoice = scanner.next();
+
+            if (overwriteChoice.equals("n")) {
+                System.out.println("계좌개설이 취소되었습니다.");
+                return;
+            }
+			else if (overwriteChoice.equals("y")) {
+				accountArray.remove(existingAccount);
+			}
+			else {
+				System.out.println("잘못입력되었습니다.");
+				return;
+			}
+        }
+        
         System.out.print("고객이름: ");
         String accName = scanner.next();
 
@@ -85,7 +120,8 @@ public class AccountManager  {
 
         HighCreditAccount highCreditAccount =
         		new HighCreditAccount(accNumber, accName, balance, InterestRate, creditRating);
-        accountArray[numOfAccounts++] = highCreditAccount;
+        accountArray.remove(highCreditAccount);
+        accountArray.add(highCreditAccount);
 
         System.out.println("계좌개설이 완료되었습니다.");
     }
@@ -161,21 +197,47 @@ public class AccountManager  {
 	    }
 	}
 	
-	
 	public void showAccInfo() {
 		System.out.println("***계좌정보출력***");
-			for (int i = 0; i < numOfAccounts; i++) {
+			for (Account acc : accountArray) {
 				System.out.println("-------------------------");
-	            System.out.println(accountArray[i]);
+	            System.out.println(acc);
 	        }
 		  System.out.println("-------------------------");
 		  System.out.println("전체계좌정보 출력이 완료되었습니다.");
 		}
 	
+	public void deleteAccount() {
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.println("***계좌정보삭제***");
+		System.out.print("계좌번호를 입력하세요: ");
+		String accNumber = scan.next();
+		
+		Account accountDelete = findAccount(accNumber);
+		
+        if (accountDelete != null) {
+            System.out.print("계좌정보를 삭제하시겠습니까? (y or n): ");
+            String deleteChoice = scan.next();
+
+            if (deleteChoice.equals("y")) {
+                accountArray.remove(accountDelete);
+                System.out.println("계좌정보가 삭제되었습니다.");
+            } else if (deleteChoice.equals("n")) {
+                System.out.println("계좌정보 삭제가 취소되었습니다.");
+            } else {
+                System.out.println("잘못입력되었습니다.");
+            }
+        } else {
+            System.out.println("해당 계좌가 존재하지 않습니다.");
+        }
+	}
+	
+	
 	private Account findAccount(String accNumber) {
-        for (int i = 0; i < numOfAccounts; i++) {
-            if (accountArray[i].getAccNumber().equals(accNumber)) {
-                return accountArray[i];
+        for (Account acc : accountArray) {
+            if (acc.getAccNumber().equals(accNumber)) {
+                return acc;
             }
         }
         return null;
