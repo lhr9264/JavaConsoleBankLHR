@@ -85,7 +85,6 @@ public class AccountManager  {
 		
 		NormalAccount normalAccount =
 				new NormalAccount(accNumber, accName, balance, InterestRate);
-		accountArray.remove(normalAccount);
 		accountArray.add(normalAccount);
 
 	    System.out.println("계좌개설이 완료되었습니다.");
@@ -127,7 +126,6 @@ public class AccountManager  {
 
         HighCreditAccount highCreditAccount =
         		new HighCreditAccount(accNumber, accName, balance, InterestRate, creditRating);
-        accountArray.remove(highCreditAccount);
         accountArray.add(highCreditAccount);
 
         System.out.println("계좌개설이 완료되었습니다.");
@@ -288,7 +286,7 @@ public class AccountManager  {
 		
 
 	
-	
+	//계좌 조회
 	private Account findAccount(String accNumber) {
         for (Account acc : accountArray) {
             if (acc.getAccNumber().equals(accNumber)) {

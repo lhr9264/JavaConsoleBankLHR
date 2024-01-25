@@ -2,7 +2,7 @@ package banking5;
 
 import java.io.Serializable;
 
-public abstract class Account implements Serializable{
+public abstract class Account implements Serializable {
 	String accNumber;
 	String accName;
 	int balance;
