@@ -1,8 +1,7 @@
 package banking5;
 
-import java.io.Serializable;
 
-public class NormalAccount extends Account implements Serializable{
+public class NormalAccount extends Account {
 	
     private double interestRate;
 
